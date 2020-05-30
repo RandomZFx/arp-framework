@@ -1,7 +1,7 @@
 ARP = {}
 
 ------------------------------------------------------------
--- 3D 右上文字
+-- 3D Upper Right Text
 ------------------------------------------------------------
 ARP.DisplayText3D = function(text)  
     SetTextComponentFormat('STRING')
@@ -10,7 +10,7 @@ ARP.DisplayText3D = function(text)
 end
 
 ------------------------------------------------------------
--- 3D 文字
+-- 3D Text
 ------------------------------------------------------------
 ARP.Draw3DTxt = function(x, y, z, r, g, b, text)  
     SetTextScale(0.4, 0.4)
@@ -30,7 +30,7 @@ ARP.Draw3DTxt = function(x, y, z, r, g, b, text)
 end
 
 ------------------------------------------------------------
--- 通知
+-- Notice
 ------------------------------------------------------------
 ARP.Notify = function(text)
     SetNotificationTextEntry('STRING')
@@ -39,7 +39,7 @@ ARP.Notify = function(text)
 end
 
 ------------------------------------------------------------
--- 讀取Model
+-- Read Model
 ------------------------------------------------------------
 ARP.LoadModel = function(model)
     while not HasModelLoaded(model) do
@@ -49,7 +49,7 @@ ARP.LoadModel = function(model)
 end
 
 ------------------------------------------------------------
--- 獲取附近玩家
+-- Get Nearby Player
 ------------------------------------------------------------
 ARP.GetClosestPlayer = function()
     local players = GetPlayers()
@@ -85,7 +85,7 @@ function GetPlayers()
 end
 
 ------------------------------------------------------------
--- 伺服器回傳
+-- Server Return
 ------------------------------------------------------------
 RegisterNetEvent('ARP_Core:DisplayText3D')
 AddEventHandler('ARP_Core:DisplayText3D', function(text)  
