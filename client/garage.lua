@@ -1,5 +1,5 @@
 ------------------------------------------------------------
--- 車庫選單
+-- Garage Menu
 ------------------------------------------------------------
 local garage = {}
 
@@ -14,7 +14,7 @@ AddEventHandler('ARP_Core:GarageMenu', function(plate, model, position, statu)
 end)
 
 ------------------------------------------------------------
--- 車庫
+-- Garage
 ------------------------------------------------------------
 local garagepos = {
     San_Andreas_Ave = {
@@ -124,13 +124,13 @@ Citizen.CreateThread(function()
 end)
 
 ------------------------------------------------------------
--- 車輛選單
+-- Vehicle Menu
 ------------------------------------------------------------
-RMenu.Add('Garagemenu', 'main', RageUI.CreateMenu('車庫', '車庫選單'))
-RMenu.Add('Poundmenu', 'main', RageUI.CreateMenu('扣押場', '扣押場選單'))
+RMenu.Add('Garagemenu', 'main', RageUI.CreateMenu('Garage', 'Garage Menu'))
+RMenu.Add('Poundmenu', 'main', RageUI.CreateMenu('Impound', 'Impound Menu'))
 local GarageMenu = {
     action = {
-        '駕駛'
+        'Drive'
     },
 }
 
@@ -174,7 +174,7 @@ Citizen.CreateThread(function()
             local PlyToDelete = GetDistanceBetweenCoords(GetEntityCoords(PlayerPedId()), v.Delete)
             local PlyToSpawn = GetDistanceBetweenCoords(GetEntityCoords(PlayerPedId()), v.Marker)
             if PlyToDelete < 3.0 then
-                ARP.DisplayText3D('按 ~INPUT_PICKUP~ 儲存車輛')
+                ARP.DisplayText3D('Press ~INPUT_PICKUP~ to save the vehicle')
                 if IsControlJustReleased(0, 38) then
                     if IsPedInVehicle(PlayerPedId(), GetVehiclePedIsIn(PlayerPedId(), false), true) then
                         CheckVehicle(v.Name)
@@ -182,7 +182,7 @@ Citizen.CreateThread(function()
                 end
             end
             if PlyToSpawn < 1.5 then
-                ARP.DisplayText3D('按 ~INPUT_PICKUP~ 開啟車庫')
+                ARP.DisplayText3D('Press ~INPUT_PICKUP~ to open garage')
                 if IsControlJustReleased(0, 38) then
                     RageUI.Visible(RMenu:Get('Garagemenu', 'main'), not RageUI.Visible(RMenu:Get('Garagemenu', 'main')))
                     TriggerServerEvent('ARP_Core:GetVehicles')
@@ -194,7 +194,7 @@ Citizen.CreateThread(function()
             DrawMarker(1, v.Spawn, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 3.0, 3.0, 1.0, 0, 255, 0, 150, false, true, 2, false, nil, nil, false)
             local PlyToSpawn = GetDistanceBetweenCoords(GetEntityCoords(PlayerPedId()), v.Marker)
             if PlyToSpawn < 1.5 then
-                ARP.DisplayText3D('按 ~INPUT_PICKUP~ 開啟扣押場')
+                ARP.DisplayText3D('Press ~INPUT_PICKUP~ to open impound')
                 if IsControlJustReleased(0, 38) then
                     RageUI.Visible(RMenu:Get('Poundmenu', 'main'), not RageUI.Visible(RMenu:Get('Poundmenu', 'main')))
                     TriggerServerEvent('ARP_Core:GetVehicles')
@@ -205,7 +205,7 @@ Citizen.CreateThread(function()
 end)
 
 ------------------------------------------------------------
--- 檢查車輛
+-- Check the vehicle
 ------------------------------------------------------------
 function CheckVehicle(position)
     local vehicle = GetVehiclePedIsIn(GetPlayerPed(-1), false)
@@ -220,7 +220,7 @@ AddEventHandler('ARP_Core:DeleteStoreVehicle', function()
 end)
 
 ------------------------------------------------------------
--- 取出車輛
+-- Remove the Vehicle
 ------------------------------------------------------------
 function DriveVehicle(plate, model, position, statu)
     for _, k in pairs(garagepos) do
@@ -231,10 +231,10 @@ function DriveVehicle(plate, model, position, statu)
                     SpawnVehicle(plate, model, k.Spawn, k.Heading)
                     RageUI.CloseAll()
                 else
-                    ARP.Notify('你的車輛並不在~g~此車庫~s~，請前往~r~其他~s~車庫')
+                    ARP.Notify('Your vehicle is not in ~g~ this garage ~s~, please go to ~r~ other ~s~ garage')
                 end
             else
-                ARP.Notify('你的車輛並不在~g~車庫~s~，請前往~r~扣押場')
+                ARP.Notify('Your vehicle is not in the ~g~ garage ~s~, please go to the ~r~ detention facility')
             end
         end
     end
@@ -246,7 +246,7 @@ function DriveVehicle(plate, model, position, statu)
                 TriggerServerEvent('ARP_Core:SetVehicleTakeOut', plate)
                 RageUI.CloseAll()
             else
-                ARP.Notify('你的車輛並不在~g~扣押場~s~，請前往~r~車庫')
+                ARP.Notify('Your vehicle is not in ~g~ impound field ~s~, please go to ~r~ garage')
             end
         end
     end
