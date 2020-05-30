@@ -1,5 +1,5 @@
 ------------------------------------------------------------
--- 扣押車輛
+-- Delete Vehicle
 ------------------------------------------------------------
 RegisterCommand("dv", function()
     local ped = GetPlayerPed(-1)
@@ -14,12 +14,12 @@ RegisterCommand("dv", function()
                 local plate = GetVehicleNumberPlateText(vehicle)
                 TriggerServerEvent('ARP_Core:UpdateVehicleStatu', plate)
                 DeleteEntity(vehicle)
-                ARP.Notify("車輛已~g~成功~s~拖吊!")
+                ARP.Notify("The vehicle has been ~g~ successful ~s~ towed!")
             else 
-                ARP.Notify("你~r~必須~s~在駕駛座上!")
+                ARP.Notify("You ~r~ must ~s~ in the driver's seat!")
             end
         else
-            ARP.Notify("你~r~必須~s~坐在車內!")
+        ARP.Notify("You ~r~ must ~s~s sit in the car!")
         end 
     end
 end, false)
