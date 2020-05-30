@@ -1,12 +1,12 @@
 ------------------------------------------------------------
--- 接收玩家登入資訊
+-- Receive player login information
 ------------------------------------------------------------
 AddEventHandler('playerSpawned', function()     
     TriggerServerEvent('ARP_Core:SpawnPlayer')
 end)
 
 ------------------------------------------------------------
--- 紀錄玩家位置/生成
+-- Record player position / generation
 ------------------------------------------------------------
 Citizen.CreateThread(function()
     while true do 
