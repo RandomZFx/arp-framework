@@ -1,5 +1,5 @@
 ------------------------------------------------------------
--- 車輛列表
+-- Vehicle List
 ------------------------------------------------------------
 local vehicles = {}
 
@@ -14,7 +14,7 @@ AddEventHandler('ARP_Core:VehicleMenu', function(model, label, price)
 end)
 
 ------------------------------------------------------------
--- 觀賞車輛
+-- Ornamental vehicle
 ------------------------------------------------------------
 function ShowVehicle(model)
     ARP.LoadModel(model)
@@ -31,7 +31,7 @@ function ShowVehicle(model)
 end
 
 ------------------------------------------------------------
--- 設定車牌
+-- Set license plate
 ------------------------------------------------------------
 local num = {}
 local char = {}
@@ -57,7 +57,7 @@ function SetPlateChar(length)
 end
 
 ------------------------------------------------------------
--- 購買車輛
+-- Buy vehicle
 ------------------------------------------------------------
 function BuyVehicle(model, label)
     ARP.LoadModel(model)
@@ -80,25 +80,25 @@ function BuyVehicle(model, label)
         table.insert(vehmodel, models[i])
     end
     
-    ARP.Notify('你~r~購買~s~了一輛~b~' .. label .. '~s~，車牌號碼: ~g~' .. plate)
+    ARP.Notify('You ~r~ buy ~s~ got one ~b~' .. label .. '~s~，License plate number: ~g~' .. plate)
     TriggerServerEvent('ARP_Core:SetVehicleToPlayer', GetVehicleNumberPlateText(PlayerVeh), vehmodel)
 end
 
 ------------------------------------------------------------
--- 車商選單
+-- Car dealer Menu
 ------------------------------------------------------------
-RMenu.Add('Vehmenu', 'main', RageUI.CreateMenu('車商', '車輛選單'))
+RMenu.Add('Vehmenu', 'main', RageUI.CreateMenu('Car Dealer', 'Car Dealer Menu'))
 local VehMenu = {
     action = {
-        '觀賞',
-        '購買'
+        'Watch',
+        'Buy'
     },
     list = 1,
 }
 
 RageUI.CreateWhile(1.0, RMenu:Get('Vehmenu', 'main'), nil, function()
     RageUI.IsVisible(RMenu:Get('Vehmenu', 'main'), true, true, true, function()
-        RageUI.Button("刪除車輛", nil, {}, true, function(hovered, active, selected)
+        RageUI.Button("Delete Vehicle", nil, {}, true, function(hovered, active, selected)
             if active then
                 DeleteEntity(veh)
             end
@@ -107,7 +107,7 @@ RageUI.CreateWhile(1.0, RMenu:Get('Vehmenu', 'main'), nil, function()
             RageUI.List(v.label .. ' ~g~$~s~ ' .. v.price, VehMenu.action, VehMenu.list, nil, {}, true, function(hovered, active, selected, index)
                 if selected then
                     if index == 1 then
-                        ARP.Notify('車輛~g~生成中~s~，請稍後')
+                        ARP.Notify('Vehicle ~g~ in production ~s~, please wait')
                         ShowVehicle(v.model)
                     elseif index == 2 then
                         BuyVehicle(v.model, v.label)
@@ -123,7 +123,7 @@ RageUI.CreateWhile(1.0, RMenu:Get('Vehmenu', 'main'), nil, function()
 end)
 
 ------------------------------------------------------------
--- 車商
+-- Car Dealer
 ------------------------------------------------------------
 Citizen.CreateThread(function()
     local blip = AddBlipForCoord(-33.92, -1103.03, 25.42)
@@ -133,7 +133,7 @@ Citizen.CreateThread(function()
     SetBlipAsShortRange(blip, true)
 
     BeginTextCommandSetBlipName('STRING')
-    AddTextComponentSubstringPlayerName('車輛商店')
+    AddTextComponentSubstringPlayerName('Dealership')
     EndTextCommandSetBlipName(blip)
 end)
 
@@ -144,7 +144,7 @@ Citizen.CreateThread(function()
 
         local PlyToShop = GetDistanceBetweenCoords(GetEntityCoords(PlayerPedId()), -33.92, -1103.03, 26.42)
         if PlyToShop < 1.5 then
-            ARP.DisplayText3D('按 ~g~E~s~ 開啟選單')
+            ARP.DisplayText3D('Press ~ g ~ E ~ s ~ to open the menu')
             if IsControlJustReleased(0, 38) then
                 RageUI.Visible(RMenu:Get('Vehmenu', 'main'), not RageUI.Visible(RMenu:Get('Vehmenu', 'main')))
                 TriggerServerEvent('ARP_Core:LoadVehicles')
