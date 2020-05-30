@@ -1,5 +1,5 @@
 ------------------------------------------------------------
--- 物品庫
+-- Inventory
 ------------------------------------------------------------
 local inventory = {}
 
@@ -14,13 +14,13 @@ AddEventHandler('ARP_Core:InentoryMenu', function(items)
 end)
 
 ------------------------------------------------------------
--- 物品庫選單
+-- Inventory Menu
 ------------------------------------------------------------
-RMenu.Add('Intmenu', 'main', RageUI.CreateMenu('背包', '背包物品'))
+RMenu.Add('Intmenu', 'main', RageUI.CreateMenu('Backpack', 'Backpack Menu'))
 local IntMenu = {
     action = {
-        '給予',
-        '丟棄'
+        'Give',
+        'Throw away'
     },
     list = 1,
 }
@@ -35,7 +35,7 @@ RageUI.CreateWhile(1.0, RMenu:Get('Intmenu', 'main'), nil, function()
                         if (distance ~= -1 and distance < 5) then
                             TriggerServerEvent('ARP_Core:GiveInventory', clsped, item)
                         else
-                            ARP.Notify('附近 ~r~沒有~s~ 玩家')
+                            ARP.Notify('~r~ no ~s~ players nearby')
                         end
                     elseif index == 2 then
                         TriggerServerEvent('ARP_Core:ThrowInventory', item)
